@@ -8,11 +8,11 @@ void CParticle::Init()
 	m_Rotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_Scale = XMFLOAT3(4.0f, 4.0f, 4.0f);
 
-	//ƒeƒNƒXƒ`ƒƒŠÇ—ƒVƒXƒeƒ€i©ìj
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ç®¡ç†ã‚·ã‚¹ãƒ†ãƒ ï¼ˆè‡ªä½œï¼‰
 	m_Texture = new CTexture();
 	m_Texture = CTextureList::GetTextureList(0);
 
-	//ƒoƒtƒ@[İ’è‚Æ‰Šú‰»
+	//ãƒãƒ•ã‚¡ãƒ¼è¨­å®šã¨åˆæœŸåŒ–
 	D3D11_BUFFER_DESC bd;
 	bd = {};
 	bd.Usage = D3D11_USAGE_DEFAULT;
@@ -21,7 +21,7 @@ void CParticle::Init()
 	bd.CPUAccessFlags = 0;
 	bd.StructureByteStride = 0;
 
-	//SUBRESOURCEİ’è‚Æ‰Šú‰»
+	//SUBRESOURCEè¨­å®šã¨åˆæœŸåŒ–
 	D3D11_SUBRESOURCE_DATA sd;
 	sd = {};
 	sd.pSysMem = pVertex;
@@ -64,76 +64,71 @@ void CParticle::CreateInstance(int count)
 		CRenderer::GetDevice()->CreateBuffer(&hBufferDesc, NULL, &m_PositionBuffer);
 		CRenderer::GetDeviceContext()->VSSetConstantBuffers(6, 1, &m_PositionBuffer);
 	}
-	//ƒoƒtƒ@[ì¬‚É¸”s‚µ‚½‚çAƒf[ƒ^‚ğ•úŠü‚·‚é
+	//ãƒãƒ•ã‚¡ãƒ¼ä½œæˆã«å¤±æ•—ã—ãŸã‚‰ã€ãƒ‡ãƒ¼ã‚¿ã‚’æ”¾æ£„ã™ã‚‹
 	if (m_PositionBuffer == nullptr) delete this;
 }
 void CParticle::Update()
 {
 		for (int i = 0; i < m_instanceCount; i++) {
-			//frame‚Ì’l‚ª-1ˆÈ‰º‚Ìê‡‚ÍA•\¦‚µ‚È‚¢‚±‚Æ‚É‚·‚é
+			//frameã®å€¤ãŒ-1ä»¥ä¸‹ã®å ´åˆã¯ã€è¡¨ç¤ºã—ãªã„ã“ã¨ã«ã™ã‚‹
 			if (m_instanceData[i].frame < 0) {
 				m_instanceData[i].x = -std::numeric_limits<float>::max();
 				m_instanceData[i].y = -std::numeric_limits<float>::max();
 				m_instanceData[i].z = -std::numeric_limits<float>::max();
 			}
-			//frame‚Ì’l‚ª0‚Ìê‡‚ÍA’l‚ğ‰Šú‰»‚·‚é
+			//frameã®å€¤ãŒ0ã®å ´åˆã¯ã€å€¤ã‚’åˆæœŸåŒ–ã™ã‚‹
 			if (m_instanceData[i].frame == 0) {
 				m_instanceData[i].x = 0;
 				m_instanceData[i].y = 0;
 				m_instanceData[i].z = 0;
 			}
-			//frame‚Ì’l‚ª1ˆÈã‚Ìê‡‚ÍAˆÊ’u’l‚ğŠi”[‚µ‚½m_movement‚Ì’l‚Å‘«‚µ‘±‚¯‚é
+			//frameã®å€¤ãŒ1ä»¥ä¸Šã®å ´åˆã¯ã€ä½ç½®å€¤ã‚’æ ¼ç´ã—ãŸm_movementã®å€¤ã§è¶³ã—ç¶šã‘ã‚‹
 			if (m_instanceData[i].frame > 0) {
 				m_instanceData[i].x += m_movement[i].x;
 				m_instanceData[i].y += m_movement[i].y;
 				m_instanceData[i].z += m_movement[i].z;
 			}
 			m_instanceData[i].frame += 1;
-			//frame‚Ì’l‚ªm_maxFrame‚É‚½‚Ç‚è’…‚¢‚½‚çA‰Šú‰»’l‚É–ß‚·
+			//frameã®å€¤ãŒm_maxFrameã«ãŸã©ã‚Šç€ã„ãŸã‚‰ã€åˆæœŸåŒ–å€¤ã«æˆ»ã™
 			if (m_instanceData[i].frame > m_maxFrame) {
 				m_instanceData[i].frame = m_startFrame[i];
 			}
 	}
-	//GPU‚Éƒf[ƒ^‚ğ‘—‚é
+	//GPUã«ãƒ‡ãƒ¼ã‚¿ã‚’é€ã‚‹
 	CRenderer::GetDeviceContext()->UpdateSubresource(m_PositionBuffer, 0, NULL, m_instanceData, 0, 0);
 
 }
 void CParticle::Draw()
 {
-	//’¸“_ƒoƒbƒtƒ@‰Šú‰»
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡åˆæœŸåŒ–
 	UINT stride = sizeof(m_Position);
 	UINT offset = 0;
 	CRenderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
-	//ƒƒ‹ƒhƒ}ƒgƒŠƒNƒX‰Šú‰»
+	//ãƒ¯ãƒ«ãƒ‰ãƒãƒˆãƒªã‚¯ã‚¹åˆæœŸåŒ–
 	XMMATRIX world;
 	world = XMMatrixScaling(m_Scale.x, m_Scale.y, m_Scale.z);
 	world *= XMMatrixRotationRollPitchYaw(m_Rotation.x, m_Rotation.y, m_Rotation.z);
 	world *= XMMatrixTranslation(m_Position.x, m_Position.y, m_Position.z);
 	CRenderer::SetWorldMatrix(&world);																
 
-	//ƒeƒNƒXƒ`ƒƒİ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 	CRenderer::SetTexture(m_Texture);
 
-	//ƒ|ƒCƒ“ƒgƒŠƒXƒg‚É‚µ‚È‚¢‚Æ‚¢‚¯‚È‚¢
+	//ãƒã‚¤ãƒ³ãƒˆãƒªã‚¹ãƒˆã«ã—ãªã„ã¨ã„ã‘ãªã„
 	CRenderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
 
-	CRenderer::SetRasterizerCullBack(false);
-
-	//ƒVƒF[ƒ_[‚ğ“K—p‚·‚éŠÖ”i©ìj
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’é©ç”¨ã™ã‚‹é–¢æ•°ï¼ˆè‡ªä½œï¼‰
 	CRenderer::SetCustomShader(m_ParticleVShader, m_ParticleVLayout, m_ParticlePShader);
 	CRenderer::GetDeviceContext()->GSSetShader(m_ParticleGShader, NULL, 0);
 
-	//ƒCƒ“ƒXƒ^ƒ“ƒX•`‰æ
+	//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹æç”»
 	CRenderer::GetDeviceContext()->DrawInstanced(1, m_instanceCount,0, 0);
 
-	//GS‚ğg‚¢I‚í‚Á‚½‚çANULL‚É‚·‚é
+	//GSã‚’ä½¿ã„çµ‚ã‚ã£ãŸã‚‰ã€NULLã«ã™ã‚‹
 	CRenderer::GetDeviceContext()->GSSetShader(nullptr, NULL, 0);
 
-	//Œ³‚ÌƒVƒF[ƒ_[‚É–ß‚·ŠÖ”i©ìj
+	//å…ƒã®ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã«æˆ»ã™é–¢æ•°ï¼ˆè‡ªä½œï¼‰
 	CRenderer::SetDefaultShader();
-
-	CRenderer::SetRasterizerCullBack(true);
-
 }
 
 void CParticle::Finalize()
