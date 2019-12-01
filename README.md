@@ -17,6 +17,7 @@ for (int i = 0; i < particleTest->GetInstanceCount(); i++) {
 	movement[i].y = .05f;               //何番目のインスタンスがこういうｙ動きする
 	movement[i].z = sin((i - 1))*0.05f; //何番目のインスタンスがこういうｚ動きする
 }
+particleTest->SetInstanceCount(25);
 particleTest->SetMaxFrame(60);
 particleTest->SetMovement(movement);
 ```
