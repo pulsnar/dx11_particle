@@ -12,6 +12,7 @@ Shader Model 5.0
 particleTest = AddGameObject<CParticle>();
 particleTest->CreateInstance(25);
 XMFLOAT3* movement = new XMFLOAT3[particleTest->GetInstanceCount()];
+int* startFrame = new int[particleTest->GetInstanceCount()];
 for (int i = 0; i < particleTest->GetInstanceCount(); i++) {
 	movement[i].x = cos((i - 1))*0.05f; //何番目のインスタンスがこういうｘ動きする
 	movement[i].y = .05f;               //何番目のインスタンスがこういうｙ動きする
