@@ -1,3 +1,9 @@
+// =========================================================================
+// GPUï¾Šï¾Ÿï¾ƒï½²ï½¸ï¾™ã‚·ã‚¹ãƒ†ãƒ 
+// by: JIWANGGA DIWANGKARA, 2019/12/01
+// GPL [https://www.gnu.org/licenses/gpl-3.0.en.html]
+// =========================================================================
+
 #pragma once
 #include "GameObject.h"
 class CParticle : public CGameObject
@@ -10,7 +16,7 @@ class CParticle : public CGameObject
 		float frame;
 	};
 private:
-	//ƒoƒtƒ@[‚âƒVƒF[ƒ_[
+	//ãƒãƒ•ã‚¡ãƒ¼ã‚„ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 	ID3D11InputLayout* m_ParticleVLayout	= nullptr;
 	ID3D11VertexShader* m_ParticleVShader	= nullptr;
 	ID3D11PixelShader* m_ParticlePShader	= nullptr;
@@ -18,15 +24,15 @@ private:
 	ID3D11Buffer* m_PositionBuffer			= nullptr;
 	ID3D11Buffer* m_VertexBuffer			= nullptr;
 	ID3D11Buffer* m_IndexBuffer				= nullptr;
-	//’¸“_ƒf[ƒ^
+	//é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿
 	VERTEX_3D* pVertex;
-	//ƒCƒ“ƒXƒ^ƒ“ƒXƒf[ƒ^
+	//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãƒ‡ãƒ¼ã‚¿
 	PARTICLE* m_instanceData = nullptr;
 	int m_instanceCount;
 	int m_maxFrame;
 	int* m_startFrame = nullptr;
 	XMFLOAT3* m_movement = nullptr;
-	//ƒeƒNƒXƒ`ƒƒ•Ï”
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£å¤‰æ•°
 	CTexture* m_Texture = nullptr;
 public:
 
@@ -36,20 +42,20 @@ public:
 	void Update();
 	void Draw();
 
-	//ƒCƒ“ƒXƒ^ƒ“ƒX‚ğì¬‚Ü‚½‚ÍAƒCƒ“ƒXƒ^ƒ“ƒX‚Ì¶¬”‚ğİ’è‚·‚éŠÖ”
+	//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆã¾ãŸã¯ã€ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ç”Ÿæˆæ•°ã‚’è¨­å®šã™ã‚‹é–¢æ•°
 	void CreateInstance(int count);
 	int GetInstanceCount() { return m_instanceCount; }
 
-	//ƒCƒ“ƒXƒ^ƒ“ƒX‚Í‰½ƒtƒŒ[ƒ€‚Ü‚Å¶‚«‚é‚Ì‚©‚Ìİ’è‚·‚éŠÖ”
+	//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¯ä½•ãƒ•ãƒ¬ãƒ¼ãƒ ã¾ã§ç”Ÿãã‚‹ã®ã‹ã®è¨­å®šã™ã‚‹é–¢æ•°
 	void SetMaxFrame(int frame) { m_maxFrame = frame; }
 
-	//n”Ô–Ú‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Í‚¢‚Â‚ÌƒtƒŒ[ƒ€”‚ÉŒ»‚ê‚é‚©‚Ü‚½‚Í“®‚­‚Ì‚©‚Ìİ’è‚·‚éŠÖ”
+	//nç•ªç›®ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¯ã„ã¤ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã«ç¾ã‚Œã‚‹ã‹ã¾ãŸã¯å‹•ãã®ã‹ã®è¨­å®šã™ã‚‹é–¢æ•°
 	void SetStartFrame(int* frame) {
 		m_startFrame = frame;
 		for (int i = 0; i < m_instanceCount; i++) {
 			m_instanceData[i].frame = m_startFrame[i];
 		}
 	}
-	//n”Ô–Ú‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Í‚Ç‚¤‚¢‚¤“®‚«‚ğ‚·‚é‚Ì‚©‚Ìİ’è‚·‚éŠÖ”
+	//nç•ªç›®ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¯ã©ã†ã„ã†å‹•ãã‚’ã™ã‚‹ã®ã‹ã®è¨­å®šã™ã‚‹é–¢æ•°
 	void SetMovement(XMFLOAT3* move) { m_movement = move; }
 };
