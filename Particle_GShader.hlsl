@@ -1,3 +1,8 @@
+// =========================================================================
+// GPUï¾Šï¾Ÿï¾ƒï½²ï½¸ï¾™ã‚·ã‚¹ãƒ†ãƒ 
+// by: JIWANGGA DIWANGKARA, 2019/12/01
+// GPL [https://www.gnu.org/licenses/gpl-3.0.en.html]
+// =========================================================================
 cbuffer WorldBuffer : register(b0)
 {
 	matrix World;
@@ -10,7 +15,7 @@ cbuffer ProjectionBuffer : register(b2)
 {
 	matrix Projection;
 }
-cbuffer CameraBuffer : register(b8) //©•ª‚ÌD‚«‚È”Ô†‚É•Ï‚¦‚½•û‚ª‚¢‚¢
+cbuffer CameraBuffer : register(b8) //è‡ªåˆ†ã®å¥½ããªç•ªå·ã«å¤‰ãˆãŸæ–¹ãŒã„ã„
 {
 	float4 CameraPosition;
 }
