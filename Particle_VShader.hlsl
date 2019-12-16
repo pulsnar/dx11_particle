@@ -1,23 +1,10 @@
 
 
 //=============================================================================
-// ’è”ƒoƒbƒtƒ@
+// å®šæ•°ãƒãƒƒãƒ•ã‚¡
 //=============================================================================
 
-// ƒ}ƒgƒŠƒNƒXƒoƒbƒtƒ@
-cbuffer WorldBuffer : register( b0 )
-{
-	matrix World;
-}
-cbuffer ViewBuffer : register( b1 )
-{
-	matrix View;
-}
-cbuffer ProjectionBuffer : register(b2)
-{
-	matrix Projection;
-}
-cbuffer PositionBuffer : register(b6) //©•ª‚ÌD‚«‚È”Ô†‚É•Ï‚¦‚½•û‚ª‚¢‚¢
+cbuffer PositionBuffer : register(b6) //è‡ªåˆ†ã®å¥½ããªç•ªå·ã«å¤‰ãˆãŸæ–¹ãŒã„ã„
 {
 	float4 instanceNewPos[1024];
 }
@@ -33,15 +20,12 @@ struct geometryInputType
 };
 
 //=============================================================================
-// ’¸“_ƒVƒF[ƒ_
+// é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€
 //=============================================================================
 geometryInputType main(vertexInputType input)
 {
 	geometryInputType output;
 
-	matrix wvp;
-	wvp = mul(World, View);
-	wvp = mul(wvp, Projection);
 	input.position.x = instanceNewPos[input.instanceId].x;
 	input.position.y = instanceNewPos[input.instanceId].y;
 	input.position.z = instanceNewPos[input.instanceId].z;
