@@ -26,5 +26,11 @@ particleTest->SetMovement(movement);
 
 位置更新するために、constantbufferでパーティクルの位置データも送らなければならないですが、cppにもうすでに書いています。自分のプログラムに空いてるconstantbufferのスロットにあわせばいいです。
 
+WVP値をジオメトリーシェーダに送る必要があります。
+
+# Version
+Version 1.00  
+Version 1.01 - いらないバファーの削除、ヘッダー更新
+
 # License
 GPL [https://www.gnu.org/licenses/gpl-3.0.en.html]
